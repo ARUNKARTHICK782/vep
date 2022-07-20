@@ -1,7 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:vepsample/ui/pages/loginpagemain.dart';
+import 'ui/pages/login_page.dart';
+import 'package:vepsample/profilebuilder/generalinfo.dart';
+import 'package:vepsample/regeneratingpassword.dart';
+
+import 'edituserdetails.dart';
+import 'forgetpassword.dart';
 GoogleSignIn _googleSignIn = GoogleSignIn();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,9 +26,535 @@ Future<void> main() async {
       options: firebaseConfig
   );
   runApp(MaterialApp(
-    home: homepage(),
+    debugShowCheckedModeBanner: false,
+    theme: ThemeData(
+      backgroundColor: Colors.grey,
+      scaffoldBackgroundColor: Color(0xffe6f1f7)
+    ),
+    home: loginpagemain()
   ));
 }
+
+class homepage extends StatefulWidget {
+  const homepage({Key? key,required String uid}) : super(key: key);
+
+  @override
+  _homepageState createState() => _homepageState();
+}
+
+class _homepageState extends State<homepage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              flex: 1,
+              child: Container(
+                width: 150,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text("VEP LOGO"),
+                    SizedBox(height: 80,),
+
+                    ListTile(
+                      leading: Icon(Icons.dashboard),
+                      title: Text("DASHBOARD"),
+                      onTap: (){
+                        setState(() {
+
+                        });
+                      },
+                    ),
+                    ListTile(
+                      title: Text("ENGAGEMENTS"),
+                      onTap: (){
+                        setState(() {
+
+                        });
+                      },
+                    ),
+                    ListTile(
+                      title: Text("CLIENTS"),
+                      onTap: (){
+                        setState(() {
+
+                        });
+                      },
+                    ),
+                    ListTile(
+                      title: Text("EXECUTIVES"),
+                      onTap: (){
+                        setState(() {
+
+                        });
+                      },
+                    ),
+                    ListTile(
+                      title: Text("SUPPORT"),
+                    ),
+                    ListTile(
+                      title: Text("MANAGERS"),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+                flex:7,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 6,
+                          child: Card(
+                            child: Container(
+                              height: 70,
+                              child: Row(
+                                children: [
+                                  Expanded(flex:1,child: Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Text("Dashboard"),
+                                  )),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Card(
+                              child:Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children:[
+                                    Icon(Icons.notification_add),
+                                    CircleAvatar(),
+                                    Icon(Icons.logout)
+
+                                  ]
+                              )
+                          ),
+                        )
+                      ],
+                    ),
+                    Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Row(
+                            children:[
+                              Expanded(
+                                flex:4,
+                                child: Row(
+                                  children: [
+                                    CircleAvatar(radius: 35,),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 20),
+                                      child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children:[
+                                            Text("Frank Smith"),
+                                            Text("Lorem ipsium"),
+                                            ClipRRect(
+                                              borderRadius: BorderRadius.circular(10),
+                                              child: Container(
+                                                  color: Colors.yellow,
+                                                  width: 150,
+                                                  child: Center(child: Text("Complete Your Profile"))),
+                                            )
+                                          ]
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                  flex:3,
+                                  child:Row(
+                                      children:[
+                                        Text("Profile Strength"),
+                                        Flexible(
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(10),
+                                            child: Container(
+                                              height: 10,
+                                              color: Colors.green,
+                                            ),
+                                          ),
+                                        ),
+                                      ]
+                                  )
+                              )
+                            ]
+                        ),
+                      ),
+                    ),
+                    SizedBox(height:30),
+                    Text("Upcoming engagements",style:TextStyle(fontSize: 25,fontWeight: FontWeight.bold)),
+                    Text("Scheduled interviews"),
+                    Row(
+                      children: [
+                        Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: Container(
+                                width: 250,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex:2,
+                                      child: Column(
+                                        children: [
+                                          Text("12",style: TextStyle(fontSize: 50),),
+                                          Text("Dec")
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                        flex:4,
+                                        child:Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children:[
+                                              Text("10.30-11.30"),
+                                              SizedBox(
+                                                  height:5
+                                              ),
+                                              Row(
+                                                  children:[
+                                                    CircleAvatar(
+                                                    ),
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text("Company name",style:TextStyle(fontSize: 15)),
+                                                        Text("Client name",style:TextStyle(fontSize: 10))
+                                                      ],
+                                                    ),
+                                                  ]
+                                              ),
+                                              SizedBox(
+                                                  height:5
+                                              ),
+                                              ClipRRect(
+                                                borderRadius: BorderRadius.circular(10),
+                                                child: Container(
+                                                    color: Colors.yellow,
+                                                    width: 90,
+                                                    child: Center(child: Text("Reschedule"))),
+                                              )
+                                            ]
+                                        )
+                                    )
+                                  ],
+                                )
+                            ),
+                          ),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                        ),
+                        Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: Container(
+                                width: 250,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex:2,
+                                      child: Column(
+                                        children: [
+                                          Text("14",style: TextStyle(fontSize: 50),),
+                                          Text("Dec")
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                        flex:4,
+                                        child:Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children:[
+                                              Text("10.30-11.30"),
+                                              SizedBox(
+                                                  height:5
+                                              ),
+                                              Row(
+                                                  children:[
+                                                    CircleAvatar(
+                                                    ),
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text("Company name",style:TextStyle(fontSize: 15)),
+                                                        Text("Client name",style:TextStyle(fontSize: 10))
+                                                      ],
+                                                    ),
+                                                  ]
+                                              ),
+                                              SizedBox(
+                                                  height:5
+                                              ),
+                                              ClipRRect(
+                                                borderRadius: BorderRadius.circular(10),
+                                                child: Container(
+                                                    color: Colors.yellow,
+                                                    width: 90,
+                                                    child: Center(child: Text("Reschedule"))),
+                                              )
+                                            ]
+                                        )
+                                    )
+                                  ],
+                                )
+                            ),
+                          ),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                        ),
+                        Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: Container(
+                                width: 250,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex:2,
+                                      child: Column(
+                                        children: [
+                                          Text("14",style: TextStyle(fontSize: 50),),
+                                          Text("Dec")
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                        flex:4,
+                                        child:Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children:[
+                                              Text("10.30-11.30"),
+                                              SizedBox(
+                                                  height:5
+                                              ),
+                                              Row(
+                                                  children:[
+                                                    CircleAvatar(
+                                                    ),
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text("Company name",style:TextStyle(fontSize: 15)),
+                                                        Text("Client name",style:TextStyle(fontSize: 10))
+                                                      ],
+                                                    ),
+                                                  ]
+                                              ),
+                                              SizedBox(
+                                                  height:5
+                                              ),
+                                              ClipRRect(
+                                                borderRadius: BorderRadius.circular(10),
+                                                child: Container(
+                                                    color: Colors.yellow,
+                                                    width: 90,
+                                                    child: Center(child: Text("Reschedule"))),
+                                              )
+                                            ]
+                                        )
+                                    )
+                                  ],
+                                )
+                            ),
+                          ),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height:30),
+                    Text("Your Stats",style:TextStyle(fontSize: 25,fontWeight: FontWeight.bold)),
+                    Text("Reports"),
+                    Container(width: double.infinity,),
+                    Row(
+                      children: [
+                        Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: Container(
+                              width: 250,
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        flex:5,
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text("Engagements",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+                                            Text("Ongoing",style: TextStyle(fontSize: 10),)
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(flex:4,child: Container(width: double.infinity,)),
+                                      Expanded(flex:3,child: Icon(Icons.note)),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Row(
+                                      children: [
+                                        Text("03",style: TextStyle(fontSize: 50),),
+                                        Spacer(),
+                                        ElevatedButton(onPressed: (){},child: Text("View All"),),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                        ),
+                        Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: Container(
+                              width: 250,
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        flex:5,
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text("Invoices",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+                                            Text("Updated",style: TextStyle(fontSize: 10),)
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(flex:4,child: Container(width: double.infinity,)),
+                                      Expanded(flex:3,child: Icon(Icons.note)),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Row(
+                                      children: [
+                                        Expanded(flex:1,child: Icon(Icons.warning)),
+                                        Expanded(
+                                          flex:2,
+                                          child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children:[
+                                                Text("You are eligible for raising an invoice if you participated in an "),
+                                                SizedBox(height: 10,),
+                                                ElevatedButton(onPressed: (){},child:Text("Apply now"))
+                                              ]
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                        ),
+                        Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: Container(
+                              width: 250,
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        flex:5,
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text("Engagements",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+                                            Text("Till today",style: TextStyle(fontSize: 10),)
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(flex:4,child: Container(width: double.infinity,)),
+                                      Expanded(flex:3,child: Icon(Icons.note)),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Row(
+                                      children: [
+                                        Text("03",style: TextStyle(fontSize: 50),),
+                                        Spacer(),
+                                        ElevatedButton(onPressed: (){},child: Text("View All"),),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                        ),
+                        Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: Container(
+                              width: 250,
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        flex:5,
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text("Support",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+                                            Text("Tickets",style: TextStyle(fontSize: 10),)
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(flex:4,child: Container(width: double.infinity,)),
+                                      Expanded(flex:3,child: Icon(Icons.note)),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Row(
+                                      children: [
+                                        Text("08",style: TextStyle(fontSize: 50),),
+                                        Spacer(),
+                                        ElevatedButton(onPressed: (){},child: Text("View All"),),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                        ),
+                      ],
+                    ),
+                  ],
+                )
+            ),
+
+          ],
+        ),
+      )
+    );
+  }
+}
+
 class googelsignin extends StatefulWidget {
   const googelsignin({Key? key}) : super(key: key);
 
@@ -146,1279 +680,158 @@ class _googelsigninState extends State<googelsignin> {
   }
 }
 
-class homepage extends StatefulWidget {
-  const homepage({Key? key}) : super(key: key);
+class verifypage extends StatefulWidget {
+  const verifypage({Key? key}) : super(key: key);
 
   @override
-  _homepageState createState() => _homepageState();
+  _verifypageState createState() => _verifypageState();
 }
 
-class _homepageState extends State<homepage> {
+class _verifypageState extends State<verifypage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              flex: 1,
-              child: Container(
-                width: 150,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text("VEP LOGO"),
-                    SizedBox(height: 80,),
-
-                    ListTile(
-                      leading: Icon(Icons.dashboard),
-                      title: Text("DASHBOARD"),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(50),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: Stack(
+                children: [
+                  Positioned(
+                      child: Text("VEP LOGO")),
+                  Positioned(
+                    top: 200,
+                    left: 100,
+                    child: Stack(
+                      children: [
+                        Card(
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width* 3/4,
+                            height: 420,
+                            child: Padding(
+                              padding: const EdgeInsets.all(100),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Verify your email address",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
+                                  Text("We have sent an OTP on a***@g***.com",style: TextStyle(fontSize: 15),),
+                                  SizedBox(height: 30),
+                                  Row(
+                                    children: [
+                                      Container(
+                                          width: 50,
+                                          child: TextField(
+                                            decoration: InputDecoration(
+                                                border: OutlineInputBorder()
+                                            ),
+                                          )
+                                      ),
+                                      SizedBox(width:20),
+                                      Container(
+                                          width: 50,
+                                          child: TextField(
+                                            decoration: InputDecoration(
+                                                border: OutlineInputBorder()
+                                            ),
+                                          )
+                                      ),
+                                      SizedBox(width:20),
+                                      Container(
+                                          width: 50,
+                                          child: TextField(
+                                            decoration: InputDecoration(
+                                                border: OutlineInputBorder()
+                                            ),
+                                          )
+                                      ),
+                                      SizedBox(width:20),
+                                      Container(
+                                          width: 50,
+                                          child: TextField(
+                                            decoration: InputDecoration(
+                                                border: OutlineInputBorder()
+                                            ),
+                                          )
+                                      ),
+                                      SizedBox(width:20),
+                                      Container(
+                                          width: 50,
+                                          child: TextField(
+                                            decoration: InputDecoration(
+                                                border: OutlineInputBorder()
+                                            ),
+                                          )
+                                      ),
+                                      SizedBox(width:20),
+                                      Container(
+                                          width: 50,
+                                          child: TextField(
+                                            decoration: InputDecoration(
+                                                border: OutlineInputBorder()
+                                            ),
+                                          )
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 30,),
+                                  Container(
+                                    width: 400,
+                                    child: Row(
+                                      children: [
+                                        Expanded(flex:2,child: Text("Resent OTP in ")),
+                                        Expanded(flex:1,child: Container(width:  double.infinity,),),
+                                        Expanded(flex:2,child: Text("Wrong email address?"))
+                                      ],
+                                    ),
+                                  ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Container(
+                                      child: ElevatedButton(
+                                        onPressed: (){},
+                                        child: Text("Verify OTP"),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    ListTile(
-                      title: Text("ENGAGEMENTS"),
-                    ),
-                    ListTile(
-                      title: Text("CLIENTS"),
-                    ),
-                    MouseRegion(
-                      child: ListTile(
-                        title: Text("EXECUTIVES"),
+                  ),
+                  Positioned(
+                    left: 700,
+                    top:100,
+                    child: Card(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Container(
+                          height: 600,
+                          width:500,
+                          child: Image(image: AssetImage("images/frontbanner.png",),fit: BoxFit.cover,),
+                        ),
                       ),
-                      onHover: (d){
-                        print(d.delta.dx);
-                      },
                     ),
-                    ListTile(
-                      title: Text("SUPPORT"),
-                    ),
-                    ListTile(
-                      title: Text("MANAGERS"),
-                    )
-                  ],
-                ),
+                  )
+
+                ],
               ),
             ),
-            Expanded(
-                flex:7,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 6,
-                          child: Card(
-                            child: Container(
-                              height: 70,
-                              child: Row(
-                                children: [
-                                  Expanded(flex:1,child: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Text("Dashboard"),
-                                  )),
-                                  Expanded(flex:2,child: Container(width: double.infinity,)),
-                                  Expanded(flex:1,child: Card(
-                                    child: Row(
-                                      children: [
-                                        Text("date")
-                                      ],
-                                    ),
-                                  ))
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Card(
-                              child:Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children:[
-                                    Icon(Icons.notification_add),
-                                    CircleAvatar(),
-                                    Icon(Icons.logout)
-
-                                  ]
-                              )
-                          ),
-                        )
-                      ],
-                    ),
-                    Text("Your Stats"),
-                    Text("Reports"),
-                    Container(width: double.infinity,),
-                    Row(
-                      children: [
-                        Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Container(
-                              width: 250,
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        flex:4,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("New Requests",style: TextStyle(fontSize: 10),),
-                                            Text("From Clients",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(flex:4,child: Container(width: double.infinity,)),
-                                      Expanded(flex:3,child: Icon(Icons.note)),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Row(
-                                      children: [
-                                        Text("03",style: TextStyle(fontSize: 50),),
-                                        Spacer(),
-                                        ElevatedButton(onPressed: (){},child: Text("View All"),),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    child:Row(
-                                      children: [
-                                        Expanded(
-                                          flex:4,
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text("Graph",style: TextStyle(fontSize: 10),),
-                                              Text("Growth",style: TextStyle(fontSize: 10),)
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(flex:4,child: Container(width: double.infinity,)),
-                                        Expanded(flex:3,child: Row(
-                                          children: [
-                                            Text("78.7"),
-                                            Text("+4.2",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        )),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Container(
-                              width: 250,
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        flex:4,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("New Requests",style: TextStyle(fontSize: 10),),
-                                            Text("From Clients",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(flex:4,child: Container(width: double.infinity,)),
-                                      Expanded(flex:3,child: Icon(Icons.note)),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Row(
-                                      children: [
-                                        Text("03",style: TextStyle(fontSize: 50),),
-                                        Spacer(),
-                                        ElevatedButton(onPressed: (){},child: Text("View All"),),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    child:Row(
-                                      children: [
-                                        Expanded(
-                                          flex:4,
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text("Graph",style: TextStyle(fontSize: 10),),
-                                              Text("Growth",style: TextStyle(fontSize: 10),)
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(flex:4,child: Container(width: double.infinity,)),
-                                        Expanded(flex:3,child: Row(
-                                          children: [
-                                            Text("78.7"),
-                                            Text("+4.2",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        )),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Container(
-                              width: 250,
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        flex:4,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("New Requests",style: TextStyle(fontSize: 10),),
-                                            Text("From Clients",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(flex:4,child: Container(width: double.infinity,)),
-                                      Expanded(flex:3,child: Icon(Icons.note)),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Row(
-                                      children: [
-                                        Text("03",style: TextStyle(fontSize: 50),),
-                                        Spacer(),
-                                        ElevatedButton(onPressed: (){},child: Text("View All"),),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    child:Row(
-                                      children: [
-                                        Expanded(
-                                          flex:4,
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text("Graph",style: TextStyle(fontSize: 10),),
-                                              Text("Growth",style: TextStyle(fontSize: 10),)
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(flex:4,child: Container(width: double.infinity,)),
-                                        Expanded(flex:3,child: Row(
-                                          children: [
-                                            Text("78.7"),
-                                            Text("+4.2",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        )),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Container(
-                              width: 250,
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        flex:4,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("New Requests",style: TextStyle(fontSize: 10),),
-                                            Text("From Clients",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(flex:4,child: Container(width: double.infinity,)),
-                                      Expanded(flex:3,child: Icon(Icons.note)),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Row(
-                                      children: [
-                                        Text("03",style: TextStyle(fontSize: 50),),
-                                        Spacer(),
-                                        ElevatedButton(onPressed: (){},child: Text("View All"),),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    child:Row(
-                                      children: [
-                                        Expanded(
-                                          flex:4,
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text("Graph",style: TextStyle(fontSize: 10),),
-                                              Text("Growth",style: TextStyle(fontSize: 10),)
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(flex:4,child: Container(width: double.infinity,)),
-                                        Expanded(flex:3,child: Row(
-                                          children: [
-                                            Text("78.7"),
-                                            Text("+4.2",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        )),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Container(
-                              width: 250,
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        flex:4,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("New Requests",style: TextStyle(fontSize: 10),),
-                                            Text("From Clients",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(flex:4,child: Container(width: double.infinity,)),
-                                      Expanded(flex:3,child: Icon(Icons.note)),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Row(
-                                      children: [
-                                        Text("03",style: TextStyle(fontSize: 50),),
-                                        Spacer(),
-                                        ElevatedButton(onPressed: (){},child: Text("View All"),),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    child:Row(
-                                      children: [
-                                        Expanded(
-                                          flex:4,
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text("Graph",style: TextStyle(fontSize: 10),),
-                                              Text("Growth",style: TextStyle(fontSize: 10),)
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(flex:4,child: Container(width: double.infinity,)),
-                                        Expanded(flex:3,child: Row(
-                                          children: [
-                                            Text("78.7"),
-                                            Text("+4.2",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        )),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Container(
-                              width: 250,
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        flex:4,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("New Requests",style: TextStyle(fontSize: 10),),
-                                            Text("From Clients",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(flex:4,child: Container(width: double.infinity,)),
-                                      Expanded(flex:3,child: Icon(Icons.note)),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Row(
-                                      children: [
-                                        Text("03",style: TextStyle(fontSize: 50),),
-                                        Spacer(),
-                                        ElevatedButton(onPressed: (){},child: Text("View All"),),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    child:Row(
-                                      children: [
-                                        Expanded(
-                                          flex:4,
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text("Graph",style: TextStyle(fontSize: 10),),
-                                              Text("Growth",style: TextStyle(fontSize: 10),)
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(flex:4,child: Container(width: double.infinity,)),
-                                        Expanded(flex:3,child: Row(
-                                          children: [
-                                            Text("78.7"),
-                                            Text("+4.2",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        )),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Container(
-                              width: 250,
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        flex:4,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("New Requests",style: TextStyle(fontSize: 10),),
-                                            Text("From Clients",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(flex:4,child: Container(width: double.infinity,)),
-                                      Expanded(flex:3,child: Icon(Icons.note)),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Row(
-                                      children: [
-                                        Text("03",style: TextStyle(fontSize: 50),),
-                                        Spacer(),
-                                        ElevatedButton(onPressed: (){},child: Text("View All"),),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    child:Row(
-                                      children: [
-                                        Expanded(
-                                          flex:4,
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text("Graph",style: TextStyle(fontSize: 10),),
-                                              Text("Growth",style: TextStyle(fontSize: 10),)
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(flex:4,child: Container(width: double.infinity,)),
-                                        Expanded(flex:3,child: Row(
-                                          children: [
-                                            Text("78.7"),
-                                            Text("+4.2",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        )),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Container(
-                              width: 250,
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        flex:4,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("New Requests",style: TextStyle(fontSize: 10),),
-                                            Text("From Clients",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(flex:4,child: Container(width: double.infinity,)),
-                                      Expanded(flex:3,child: Icon(Icons.note)),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Row(
-                                      children: [
-                                        Text("03",style: TextStyle(fontSize: 50),),
-                                        Spacer(),
-                                        ElevatedButton(onPressed: (){},child: Text("View All"),),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    child:Row(
-                                      children: [
-                                        Expanded(
-                                          flex:4,
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text("Graph",style: TextStyle(fontSize: 10),),
-                                              Text("Growth",style: TextStyle(fontSize: 10),)
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(flex:4,child: Container(width: double.infinity,)),
-                                        Expanded(flex:3,child: Row(
-                                          children: [
-                                            Text("78.7"),
-                                            Text("+4.2",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        )),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          shape: RoundedRectangleBorder(
-                              side: BorderSide(color: Colors.blue, width: 2.0),
-                              borderRadius: BorderRadius.circular(20)),
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Container(
-                              width: 250,
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        flex:4,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("New Requests",style: TextStyle(fontSize: 10),),
-                                            Text("From Clients",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(flex:4,child: Container(width: double.infinity,)),
-                                      Expanded(flex:3,child: Icon(Icons.note)),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Row(
-                                      children: [
-                                        Text("03",style: TextStyle(fontSize: 50),),
-                                        Spacer(),
-                                        ElevatedButton(onPressed: (){},child: Text("View All"),),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    child:Row(
-                                      children: [
-                                        Expanded(
-                                          flex:4,
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text("Graph",style: TextStyle(fontSize: 10),),
-                                              Text("Growth",style: TextStyle(fontSize: 10),)
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(flex:4,child: Container(width: double.infinity,)),
-                                        Expanded(flex:3,child: Row(
-                                          children: [
-                                            Text("78.7"),
-                                            Text("+4.2",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        )),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Container(
-                              width: 250,
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        flex:4,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("New Requests",style: TextStyle(fontSize: 10),),
-                                            Text("From Clients",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(flex:4,child: Container(width: double.infinity,)),
-                                      Expanded(flex:3,child: Icon(Icons.note)),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Row(
-                                      children: [
-                                        Text("03",style: TextStyle(fontSize: 50),),
-                                        Spacer(),
-                                        ElevatedButton(onPressed: (){},child: Text("View All"),),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    child:Row(
-                                      children: [
-                                        Expanded(
-                                          flex:4,
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text("Graph",style: TextStyle(fontSize: 10),),
-                                              Text("Growth",style: TextStyle(fontSize: 10),)
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(flex:4,child: Container(width: double.infinity,)),
-                                        Expanded(flex:3,child: Row(
-                                          children: [
-                                            Text("78.7"),
-                                            Text("+4.2",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        )),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          shape: RoundedRectangleBorder(
-                              side: BorderSide(color: Colors.blue, width: 2.0),
-                              borderRadius: BorderRadius.circular(20)),
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Container(
-                              width: 250,
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        flex:4,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("New Requests",style: TextStyle(fontSize: 10),),
-                                            Text("From Clients",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(flex:4,child: Container(width: double.infinity,)),
-                                      Expanded(flex:3,child: Icon(Icons.note)),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Row(
-                                      children: [
-                                        Text("03",style: TextStyle(fontSize: 50),),
-                                        Spacer(),
-                                        ElevatedButton(onPressed: (){},child: Text("View All"),),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    child:Row(
-                                      children: [
-                                        Expanded(
-                                          flex:4,
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text("Graph",style: TextStyle(fontSize: 10),),
-                                              Text("Growth",style: TextStyle(fontSize: 10),)
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(flex:4,child: Container(width: double.infinity,)),
-                                        Expanded(flex:3,child: Row(
-                                          children: [
-                                            Text("78.7"),
-                                            Text("+4.2",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        )),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Container(
-                              width: 250,
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        flex:4,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("New Requests",style: TextStyle(fontSize: 10),),
-                                            Text("From Clients",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(flex:4,child: Container(width: double.infinity,)),
-                                      Expanded(flex:3,child: Icon(Icons.note)),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Row(
-                                      children: [
-                                        Text("03",style: TextStyle(fontSize: 50),),
-                                        Spacer(),
-                                        ElevatedButton(onPressed: (){},child: Text("View All"),),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    child:Row(
-                                      children: [
-                                        Expanded(
-                                          flex:4,
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text("Graph",style: TextStyle(fontSize: 10),),
-                                              Text("Growth",style: TextStyle(fontSize: 10),)
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(flex:4,child: Container(width: double.infinity,)),
-                                        Expanded(flex:3,child: Row(
-                                          children: [
-                                            Text("78.7"),
-                                            Text("+4.2",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        )),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          shape: RoundedRectangleBorder(
-                              side: BorderSide(color: Colors.blue, width: 2.0),
-                              borderRadius: BorderRadius.circular(20)),
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Container(
-                              width: 250,
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        flex:4,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("New Requests",style: TextStyle(fontSize: 10),),
-                                            Text("From Clients",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(flex:4,child: Container(width: double.infinity,)),
-                                      Expanded(flex:3,child: Icon(Icons.note)),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Row(
-                                      children: [
-                                        Text("03",style: TextStyle(fontSize: 50),),
-                                        Spacer(),
-                                        ElevatedButton(onPressed: (){},child: Text("View All"),),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    child:Row(
-                                      children: [
-                                        Expanded(
-                                          flex:4,
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text("Graph",style: TextStyle(fontSize: 10),),
-                                              Text("Growth",style: TextStyle(fontSize: 10),)
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(flex:4,child: Container(width: double.infinity,)),
-                                        Expanded(flex:3,child: Row(
-                                          children: [
-                                            Text("78.7"),
-                                            Text("+4.2",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        )),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Container(
-                              width: 250,
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        flex:4,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("New Requests",style: TextStyle(fontSize: 10),),
-                                            Text("From Clients",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(flex:4,child: Container(width: double.infinity,)),
-                                      Expanded(flex:3,child: Icon(Icons.note)),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Row(
-                                      children: [
-                                        Text("03",style: TextStyle(fontSize: 50),),
-                                        Spacer(),
-                                        ElevatedButton(onPressed: (){},child: Text("View All"),),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    child:Row(
-                                      children: [
-                                        Expanded(
-                                          flex:4,
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text("Graph",style: TextStyle(fontSize: 10),),
-                                              Text("Growth",style: TextStyle(fontSize: 10),)
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(flex:4,child: Container(width: double.infinity,)),
-                                        Expanded(flex:3,child: Row(
-                                          children: [
-                                            Text("78.7"),
-                                            Text("+4.2",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        )),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          shape: RoundedRectangleBorder(
-                              side: BorderSide(color: Colors.blue, width: 2.0),
-                              borderRadius: BorderRadius.circular(20)),
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Container(
-                              width: 250,
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        flex:4,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("New Requests",style: TextStyle(fontSize: 10),),
-                                            Text("From Clients",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(flex:4,child: Container(width: double.infinity,)),
-                                      Expanded(flex:3,child: Icon(Icons.note)),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Row(
-                                      children: [
-                                        Text("03",style: TextStyle(fontSize: 50),),
-                                        Spacer(),
-                                        ElevatedButton(onPressed: (){},child: Text("View All"),),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    child:Row(
-                                      children: [
-                                        Expanded(
-                                          flex:4,
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text("Graph",style: TextStyle(fontSize: 10),),
-                                              Text("Growth",style: TextStyle(fontSize: 10),)
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(flex:4,child: Container(width: double.infinity,)),
-                                        Expanded(flex:3,child: Row(
-                                          children: [
-                                            Text("78.7"),
-                                            Text("+4.2",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        )),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Container(
-                              width: 250,
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        flex:4,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("New Requests",style: TextStyle(fontSize: 10),),
-                                            Text("From Clients",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(flex:4,child: Container(width: double.infinity,)),
-                                      Expanded(flex:3,child: Icon(Icons.note)),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Row(
-                                      children: [
-                                        Text("03",style: TextStyle(fontSize: 50),),
-                                        Spacer(),
-                                        ElevatedButton(onPressed: (){},child: Text("View All"),),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    child:Row(
-                                      children: [
-                                        Expanded(
-                                          flex:4,
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text("Graph",style: TextStyle(fontSize: 10),),
-                                              Text("Growth",style: TextStyle(fontSize: 10),)
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(flex:4,child: Container(width: double.infinity,)),
-                                        Expanded(flex:3,child: Row(
-                                          children: [
-                                            Text("78.7"),
-                                            Text("+4.2",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        )),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          shape: RoundedRectangleBorder(
-                              side: BorderSide(color: Colors.blue, width: 2.0),
-                              borderRadius: BorderRadius.circular(20)),
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Container(
-                              width: 250,
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        flex:4,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("New Requests",style: TextStyle(fontSize: 10),),
-                                            Text("From Clients",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(flex:4,child: Container(width: double.infinity,)),
-                                      Expanded(flex:3,child: Icon(Icons.note)),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Row(
-                                      children: [
-                                        Text("03",style: TextStyle(fontSize: 50),),
-                                        Spacer(),
-                                        ElevatedButton(onPressed: (){},child: Text("View All"),),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    child:Row(
-                                      children: [
-                                        Expanded(
-                                          flex:4,
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text("Graph",style: TextStyle(fontSize: 10),),
-                                              Text("Growth",style: TextStyle(fontSize: 10),)
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(flex:4,child: Container(width: double.infinity,)),
-                                        Expanded(flex:3,child: Row(
-                                          children: [
-                                            Text("78.7"),
-                                            Text("+4.2",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        )),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                        ),
-                        Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Container(
-                              width: 250,
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        flex:4,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("New Requests",style: TextStyle(fontSize: 10),),
-                                            Text("From Clients",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(flex:4,child: Container(width: double.infinity,)),
-                                      Expanded(flex:3,child: Icon(Icons.note)),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Row(
-                                      children: [
-                                        Text("03",style: TextStyle(fontSize: 50),),
-                                        Spacer(),
-                                        ElevatedButton(onPressed: (){},child: Text("View All"),),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    child:Row(
-                                      children: [
-                                        Expanded(
-                                          flex:4,
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text("Graph",style: TextStyle(fontSize: 10),),
-                                              Text("Growth",style: TextStyle(fontSize: 10),)
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(flex:4,child: Container(width: double.infinity,)),
-                                        Expanded(flex:3,child: Row(
-                                          children: [
-                                            Text("78.7"),
-                                            Text("+4.2",style: TextStyle(fontSize: 10),)
-                                          ],
-                                        )),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          shape: RoundedRectangleBorder(
-                              side: BorderSide(color: Colors.blue, width: 2.0),
-                              borderRadius: BorderRadius.circular(20)),
-                        )
-                      ],
-                    ),
-                  ],
-                )
-            ),
-
-          ],
+          ),
         ),
       ),
     );
   }
 }
+
 
 
 
